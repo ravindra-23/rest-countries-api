@@ -2,6 +2,9 @@
 
 const countryList = document.querySelector('.country-lists')
 const searchEl = document.querySelector('#search')
+const filterBtn = document.getElementById('filter');
+const regions = filterBtn.querySelectorAll('li');
+
 
 
 
@@ -39,3 +42,44 @@ const displayCountries = (countries) => {
         countryList.appendChild(countryCard)
     })
 }
+
+// Filter by search input
+
+searchEl.addEventListener('keyup', (e) => {
+    const input = e.target.value;
+    const allCountries = document.querySelectorAll('.country-name')
+
+    allCountries.forEach(country => {
+        if(country.innerText.toLowerCase().includes(input.toLowerCase())) {
+            country.parentElement.parentElement.style.display = 'block'
+        } else {
+            country.parentElement.parentElement.style.display = 'none'
+        }
+    })
+})
+
+// Filter by regions
+
+regions.forEach(region => {
+    region.addEventListener('click', (e) => {
+        const regionText = region.innerText
+        const allRegions = document.querySelectorAll('.region')
+
+        allRegions.forEach(countryRegion => {
+            if(countryRegion.innerText.includes(regionText) || regionText === 'All') {
+                countryRegion.parentElement.parentElement.style.display = 'block'
+            } else {
+                countryRegion.parentElement.parentElement.style.display = 'none'
+            }
+        })
+        
+
+    })
+})
+
+
+// Event Listeners
+
+filterBtn.addEventListener('click', () => {
+	filterBtn.classList.toggle('open');
+});
