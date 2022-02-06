@@ -79,6 +79,8 @@ header {
     margin-top: 2rem;
 }
 
+/* Search Section */
+
 .search-filter {
     flex-direction: column;
 }
@@ -114,5 +116,25 @@ header {
 
 .modal {
     display: none;
+}
+
+/* Country List styles */
+
+.country-lists {
+    margin-top: 2rem;
+}
+
+.country-card {
+    margin-bottom: 2.5rem;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.flag-image {
+    object-fit: cover;
+}
+
+.info {
+    padding: 2rem 1.5rem;
 }
 
