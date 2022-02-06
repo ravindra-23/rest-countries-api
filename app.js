@@ -4,6 +4,11 @@ const countryList = document.querySelector('.country-lists')
 const searchEl = document.querySelector('#search')
 const filterBtn = document.getElementById('filter');
 const regions = filterBtn.querySelectorAll('li');
+const modal = document.querySelector('#modal')
+const modalContent = document.querySelector('.modal-content')
+const closeModal = document.querySelector('.close-btn')
+const mainContainer = document.querySelector('.container')
+const themeToggle = document.querySelector('.theme-toggler')
 
 
 
@@ -40,6 +45,15 @@ const displayCountries = (countries) => {
             </div>    
         `;
         countryList.appendChild(countryCard)
+
+        // Event Listener to display individual Country Details
+
+        countryCard.addEventListener('click', () => {
+            console.log('clicked')
+            modal.style.display = 'block';
+            mainContainer.style.display = 'none'
+            showCountryDetails(country)
+        })
     })
 }
 
@@ -77,9 +91,55 @@ regions.forEach(region => {
     })
 })
 
+// Function to display individual Country Details in Modal
+
+const showCountryDetails = (country) => {
+    const {flag, name, region, subregion, nativeName, population, topLevelDomain, currencies, languages, capital, borders} = country
+    const hasBorders = !borders ? false : true;
+    modalContent.innerHTML = `
+        <div class="flag-section">
+            <img src=${flag} alt="country flag" class="country-flag-image"/>
+        </div>
+
+        <div class="country-info">
+            <div class="country-name">
+                <h2>${name}</h2>
+            </div>
+
+            <div class="country-details">
+                <div class="details-1">
+                    <h3 class="native-name detail"><strong>Native Name:</strong> ${nativeName}</h3>
+                    <h3 class="country-population detail"><strong>Population:</strong> ${population.toLocaleString()}</h3>
+                    <h3 class="region-name detail"><strong>Region:</strong> ${region}</h3>
+                    <h3 class="subregion-name detail"><strong>Sub-region:</strong> ${subregion}</h3>
+                    <h3 class="capital-name detail"><strong>Capital:</strong> ${capital}</h3>
+                </div>
+
+                <div class="details-2">
+                    <h3 class="domain-name detail"><strong>Domain Name:</strong> ${topLevelDomain[0]}</h3>
+                    <h3 class="currency-name detail"><strong>Currency:</strong> ${currencies.map(currency => currency.code)}</h3>
+                    <h3 class="languages-name detail"><strong>Languages:</strong> ${languages.map(language => language.name)}</h3>
+                </div>
+            </div>
+
+            <div class="borders-section">
+                <h3 class="borders"><strong>Borders: </strong>${hasBorders ? borders.map(border => border) : 'No Borders'}</h3>
+            </div>
+        </div>
+    `
+}
+
 
 // Event Listeners
 
+
+// Filter dropdown list event listener
 filterBtn.addEventListener('click', () => {
 	filterBtn.classList.toggle('open');
 });
+
+// Close modal Event listener
+closeModal.addEventListener('click', () => {
+    modal.style.display = 'none'
+    mainContainer.style.display = 'block'
+})
