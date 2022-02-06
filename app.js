@@ -28,14 +28,14 @@ const displayCountries = (countries) => {
     countryList.innerHTML = ''
 
     countries.forEach(country => {
-        const {flag, name, population, region, capital} = country
+        const {flags, name, population, region, capital} = country
         const countryCard = document.createElement('div')
         countryCard.classList.add('country-card')
 
         countryCard.innerHTML = 
         `
             <div class="image">
-                <img src=${flag} alt="country flag" class="flag-image">
+                <img src=${flags.png} alt="country flag" class="flag-image">
             </div>
             <div class="info">
                 <h2 class="country-name">${name}</h2>
@@ -142,4 +142,10 @@ filterBtn.addEventListener('click', () => {
 closeModal.addEventListener('click', () => {
     modal.style.display = 'none'
     mainContainer.style.display = 'block'
+})
+
+// Dark mode Theme toggler
+
+themeToggle.addEventListener('click', () => {
+    document.body.classList.toggle('dark');
 })
